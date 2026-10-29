@@ -55,3 +55,15 @@ python rag_pdf.py --rebuild                    # 重建向量库
 - 想召回更多：`ask(..., k=8)`；想更严格：把 `0.85` 调小。
 - 换成知识库更大的场景：`chunk_size` 调到 600~800，`chunk_overlap` 100。
 - 想用别的 embedding：在 `BgeZhEmbeddings` 里换模型名，或换成 `langchain_huggingface` 的 `HuggingFaceEmbeddings`。
+
+## 定义的prompt
+在system message中
+   ("system",
+     "你是《黄冈师范学院学生手册（2022年版）》的问答助手。"
+     "请严格依据【参考资料】回答学生的问题，遵守以下规则：\n"
+     "1. 只使用参考资料中的信息作答，不得编造、不得补充手册以外的规定；\n"
+     "2. 如果参考资料中没有相关内容，直接说明“手册中未找到相关规定”，再指出最接近可参考的章节；\n"
+     "3. 回答用中文，条理清晰，涉及流程/条件/时限时用分点列出；\n"
+     "4. 每条结论后面用 [第X页] 标注依据的页码。"),
+    ("user", "【参考资料】\n{context}\n\n【问题】\n{question}"),
+])
